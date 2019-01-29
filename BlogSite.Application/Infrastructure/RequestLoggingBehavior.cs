@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlogSite.Application.Infrastructure
 {
-    public sealed class RequestLoggingBehavior<TRequest> : IRequestPreProcessor<TRequest>
-        where TRequest : IApplicationRequest
+    public sealed class RequestLoggingBehavior<TRequest> : IRequestPreProcessor<TRequest>        
     {
         private readonly ILogger _logger;
 
@@ -18,8 +17,7 @@ namespace BlogSite.Application.Infrastructure
         public Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var name = typeof(TRequest).Name;
-            IUserContext user = request.User;
-            _logger.LogInformation("BlogSite Request: {Name} {@Request} {@User}", name, request, user);
+            _logger.LogInformation("BlogSite Request: {Name} {@Request}", name, request);
 
             return Task.CompletedTask;
         }

@@ -8,7 +8,7 @@ namespace BlogSite.MVC.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Blogs");
+            return View();
         }
 
         public IActionResult Privacy()

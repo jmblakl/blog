@@ -6,6 +6,9 @@ using BlogSite.Persistance;
 using FluentValidation.AspNetCore;
 using MediatR;
 using MediatR.Pipeline;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace BlogSite.MVC
 {
@@ -48,6 +52,25 @@ namespace BlogSite.MVC
             services.AddDbContext<BlogSiteDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BlogSiteDBContext")));
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(cookieOptions =>
+                {
+                    cookieOptions.LoginPath = "/Account/Login";
+                    cookieOptions.LogoutPath = "/Account/Logout";
+                })
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = "597745951925-0l96a67dinti2hche0ms3eapuc0t7pap.apps.googleusercontent.com";
+                    googleOptions.ClientSecret = "For9L8Uz6EpqEVq8k_rRNYHF";
+                    googleOptions.Events = new OAuthEvents
+                    {
+                        OnCreatingTicket = context =>
+                        {
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -74,7 +97,7 @@ namespace BlogSite.MVC
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

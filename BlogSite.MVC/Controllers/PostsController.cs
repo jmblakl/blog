@@ -11,13 +11,13 @@ namespace BlogSite.MVC.Controllers
     {
         public async Task<IActionResult> View(int blogId, int postId, CancellationToken cancellationToken)
         {
-            PostDetails details = await Mediator.Send(new GetPostQuery() { User = UserContext, PostId = postId, BlogId = blogId }, cancellationToken);
+            PostDetails details = await Mediator.Send(new GetPostQuery() { PostId = postId, BlogId = blogId }, cancellationToken);
             return View(details);
         }
 
         public IActionResult Create(int blogId)
         {
-            return View(new CreatePostCommand() { User = UserContext, BlogId = blogId });
+            return View(new CreatePostCommand() { BlogId = blogId });
         }
 
         [HttpPost]
@@ -25,9 +25,7 @@ namespace BlogSite.MVC.Controllers
         {
             if (!ModelState.IsValid)
                 return View(command);
-
-            command.User = UserContext;
-
+            
             CreatePostResponse response = await Mediator.Send(command, cancellationToken);
 
             return RedirectToAction("View", new { blogId = response.BlogId, postId = response.PostId });
