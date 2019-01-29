@@ -3,10 +3,10 @@ using MediatR;
 
 namespace BlogSite.Application.Blogs.Queries
 {
-    public sealed class GetBlogDetailsQuery : IRequest<BlogDetails>, IApplicationRequest
+    public sealed class GetBlogDetailsQuery : IRequest<BlogDetails>
     {
         public int BlogId { get; set; }
 
-        public IUserContext User { get; set; }
+        
     }
 }

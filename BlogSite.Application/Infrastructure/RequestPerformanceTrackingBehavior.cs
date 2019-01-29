@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace BlogSite.Application.Infrastructure
 {
     public sealed class RequestPerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IApplicationRequest
     {
         private readonly Stopwatch _timer;
         private readonly ILogger<TRequest> _logger;
@@ -33,7 +32,7 @@ namespace BlogSite.Application.Infrastructure
                 if (_timer.ElapsedMilliseconds > 500)
                 {
                     var name = typeof(TRequest).Name;
-                    _logger.LogWarning("BlogSite Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request} {@User}", name, _timer.ElapsedMilliseconds, request, request.User);
+                    _logger.LogWarning("BlogSite Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}", name, _timer.ElapsedMilliseconds, request);
                 }
             }
         }

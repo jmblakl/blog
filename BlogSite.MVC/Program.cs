@@ -1,4 +1,5 @@
-﻿using BlogSite.Persistance;
+﻿using BlogSite.MVC.Models;
+using BlogSite.Persistance;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,8 @@ namespace BlogSite.MVC
                 try
                 {
                     var context = scope.ServiceProvider.GetService<BlogSiteDBContext>();
+                    var usercontext = scope.ServiceProvider.GetService<BlogSiteUserContext>();
+                    usercontext.Database.Migrate();
                     context.Database.Migrate();
                 }
                 catch (Exception ex)

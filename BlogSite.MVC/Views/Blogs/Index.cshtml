@@ -6,7 +6,7 @@
 <h1>Index</h1>
 @foreach(var blogPreview in Model)
 {
-    @await Html.PartialAsync("_BlogPreview", blogPreview)
+    <partial name="_BlogPreview" model="blogPreview" />
 }
 <div>
     <a asp-action="Create" class="btn btn-primary">Create New Blog</a>

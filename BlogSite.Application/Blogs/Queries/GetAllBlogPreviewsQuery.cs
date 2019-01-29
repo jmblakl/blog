@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace BlogSite.Application.Blogs.Queries
 {
-    public sealed class GetAllBlogPreviewsQuery : IRequest<IEnumerable<BlogPreview>>, IApplicationRequest
+    public sealed class GetAllBlogPreviewsQuery : IRequest<IEnumerable<BlogPreview>>
     {
-        public IUserContext User { get; set; }
+        
     }
 }

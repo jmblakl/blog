@@ -2,6 +2,8 @@
 using BlogSite.Application.Infrastructure;
 using BlogSite.Common;
 using BlogSite.Intrastructure;
+using BlogSite.MVC.Areas.Identity.Data;
+using BlogSite.MVC.Models;
 using BlogSite.Persistance;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -48,6 +50,18 @@ namespace BlogSite.MVC
             services.AddDbContext<BlogSiteDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BlogSiteDBContext")));
 
+            services.AddDbContext<BlogSiteUserContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("BlogSiteDBContext")));
+            services.AddDefaultIdentity<BlogSiteUser>()
+                .AddEntityFrameworkStores<BlogSiteUserContext>();
+
+            services.AddAuthentication()
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = "597745951925-0l96a67dinti2hche0ms3eapuc0t7pap.apps.googleusercontent.com";
+                    googleOptions.ClientSecret = "For9L8Uz6EpqEVq8k_rRNYHF";                   
+                });
+
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -73,6 +87,7 @@ namespace BlogSite.MVC
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>

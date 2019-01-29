@@ -34,9 +34,9 @@ namespace BlogSite.MVC.Controllers
             if (!ModelState.IsValid)
                 return View(command);
 
-            await Mediator.Send(command, cancellationToken);
+            CreateBlogResponse response = await Mediator.Send(command, cancellationToken);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), new { id = response.BlogId });
         }
     }
 }

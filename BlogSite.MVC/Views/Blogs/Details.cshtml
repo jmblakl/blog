@@ -43,7 +43,7 @@
     </dl>
     @foreach (var post in Model.Posts)
     {
-        @await Html.PartialAsync("_PostPreview",post)
+        <partial name="_PostPreview" model="post"/>
     }
 
 </div>
