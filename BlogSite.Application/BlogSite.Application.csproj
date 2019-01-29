@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.1.2" />
+    <PackageReference Include="MediatR" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlogSite.Common\BlogSite.Common.csproj" />
+    <ProjectReference Include="..\BlogSite.Domain\BlogSite.Domain.csproj" />
+    <ProjectReference Include="..\BlogSite.Persistance\BlogSite.Persistance.csproj" />
+  </ItemGroup>
+
+</Project>

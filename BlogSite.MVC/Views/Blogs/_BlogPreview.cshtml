@@ -1,0 +1,8 @@
+﻿@using BlogSite.Application.Blogs.Models
+@model BlogPreview
+
+<h2>@Model.Name</h2>
+<p>@Model.Url</p>
+<p>@Model.NumberOfPosts</p>
+<p>@Model.PostingSince.ToString("o")</p>
+<a asp-action="Details" asp-route-id="@Model.BlogId">Details</a>

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<BlogSite.Application.Blogs.Models.BlogPreview>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@foreach(var blogPreview in Model)
+{
+    @await Html.PartialAsync("_BlogPreview", blogPreview)
+}
+<div>
+    <a asp-action="Create" class="btn btn-primary">Create New Blog</a>
+</div>
